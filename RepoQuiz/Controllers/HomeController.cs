@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RepoQuiz.DAL;
 
 namespace RepoQuiz.Controllers
 {
@@ -10,6 +11,8 @@ namespace RepoQuiz.Controllers
     {
         public ActionResult Index()
         {
+            NameGenerator SingleStudent = new NameGenerator();
+            ViewBag.Student = SingleStudent.GenerateRandomStudent();
             return View();
         }
 
