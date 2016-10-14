@@ -17,6 +17,25 @@ namespace RepoQuiz.Tests.DAL
         Mock<DbSet<Student>> mock_student_table { get; set; }
         List<Student> student_list { get; set; } // May not need this
         StudentRepository repo { get; set; }
+
+        List<Student> populatedStudentList = new List<Student>()
+            {
+                new Student()
+                {
+                    StudentID = 1,
+                    FirstName = "Billy",
+                    LastName = "Joel",
+                    Major = "Music"
+                },
+                new Student()
+                {
+                    StudentID = 2,
+                    FirstName = "David",
+                    LastName = "Gahan",
+                    Major = "Music"
+                }
+            };
+
         public void ConnectMocksToDatastore()
         {
             var queryable_list = student_list.AsQueryable();
@@ -78,5 +97,29 @@ namespace RepoQuiz.Tests.DAL
             Assert.AreEqual(expected_student_count, actual_student_count);
         }
 
+        [TestMethod]
+        public void Repo_CanStudentsBeAdded_CheckedViaCount()
+        {
+            // Act
+            repo.AddStudents(populatedStudentList);
+
+            int expected_student_count = populatedStudentList.Count;
+            int actual_student_count = repo.GetAllStudents().Count;
+
+            // Assert
+            Assert.AreEqual(expected_student_count, actual_student_count);
+        }
+
+        [TestMethod]
+        public void Repo_CanStudentsBeAdded_CheckedViaFirstName()
+        {
+            // Act
+            repo.AddStudents(populatedStudentList);
+            List<Student> studentListReturned = repo.GetAllStudents();
+
+            // Assert
+            Assert.IsTrue(studentListReturned[0].FirstName == "Billy");
+            Assert.IsTrue(studentListReturned[1].FirstName == "David");
+        }
     }
 }
