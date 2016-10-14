@@ -11,8 +11,6 @@ namespace RepoQuiz.Controllers
     {
         public ActionResult Index()
         {
-            NameGenerator SingleStudent = new NameGenerator();
-            ViewBag.Student = SingleStudent.GenerateRandomStudentList();
             return View();
         }
 
