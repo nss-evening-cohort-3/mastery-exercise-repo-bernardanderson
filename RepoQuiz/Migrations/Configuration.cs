@@ -6,6 +6,7 @@ namespace RepoQuiz.Migrations
     using System.Linq;
     using Models;
     using DAL;
+    using System.Collections.Generic;
 
     internal sealed class Configuration : DbMigrationsConfiguration<StudentContext>
     {
@@ -17,30 +18,14 @@ namespace RepoQuiz.Migrations
         protected override void Seed(StudentContext context)
         {
             NameGenerator SeedNameGenerator = new NameGenerator();
+            List<Student> StudentList = SeedNameGenerator.GenerateRandomStudentList();
 
-            while (context.Students.Count() < 11)
+            foreach (var student in StudentList)
             {
-                Student RandomStudent = new Student();
-
-                RandomStudent = SeedNameGenerator.GenerateRandomStudent();
-
                 context.Students.AddOrUpdate(
-                    stu => stu.FirstName,
-                    RandomStudent
-                    );
+                    new Student { FirstName = student.FirstName, LastName = student.LastName, Major = student.Major}
+                );
             }
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 }
