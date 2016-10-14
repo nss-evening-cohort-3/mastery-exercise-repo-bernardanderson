@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepoQuiz.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace RepoQuiz.Controllers
         // GET: Student
         public ActionResult Index()
         {
+            ViewBag.StudentList = new StudentRepository().GetAllStudents();
             return View();
         }
 

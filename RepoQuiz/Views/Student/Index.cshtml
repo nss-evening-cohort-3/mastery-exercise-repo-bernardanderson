@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Student Table";
+}
+
+<h2>Current Student Roster</h2>
+
+<table class="table table-striped text-center">
+    <tr>
+        <th class="text-center">StudentID</th>
+        <th class="text-center">First Name</th>
+        <th class="text-center">Last Name</th>
+        <th class="text-center">Major</th>
+    </tr>
+
+    @foreach (var student in ViewBag.StudentList)
+    {
+        <tr>
+            <td>@student.StudentID</td>
+            <td>@student.FirstName</td>
+            <td>@student.LastName</td>
+            <td>@student.Major</td>
+        </tr>
+    }
+</table>
+
