@@ -20,16 +20,16 @@ namespace RepoQuiz.DAL
             Context = _context;
         }
 
-        // Gets the Student table, adds them to the Student "object" and adds each "object" to a List<>
         virtual public List<Student> GetAllStudents()
         {
-            var StudentTable = Context.Students;
+            return Context.Students.Select(a => a).ToList();
+        }
 
-            List<Student> ListOfStudents = new List<Student>();
-
-            foreach (var student in StudentTable)
+        virtual public List<Student> AddStudents(List<Student> sentStudentList)
+        {
+            foreach (var student in sentStudentList)
             {
-                ListOfStudents.Add( new Student()
+                Context.Students.Add(new Student
                 {
                     StudentID = student.StudentID,
                     FirstName = student.FirstName,
@@ -37,7 +37,9 @@ namespace RepoQuiz.DAL
                     Major = student.Major
                 });
             }
-            return ListOfStudents;
+            Context.SaveChanges();
+
+            return GetAllStudents();
         }
 
 
