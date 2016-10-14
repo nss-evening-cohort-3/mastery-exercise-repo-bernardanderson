@@ -23,24 +23,26 @@ namespace RepoQuiz.DAL
             "English", "Chemistry", "Biology", "Physics", "Math", "Philosophy", "Psychology", "Music", "Art", "Law", "Political Science", "Pre-Med"
         };
 
-        public Student GenerateRandomStudent()
+        public List<Student> GenerateRandomStudentList()
         {
+            List<Student> StudentList = new List<Student>();
             Random RandomNumber = new Random();
 
-            Student RandomStudent = new Student()
+            while (StudentList.Count < 10 )
             {
-                FirstName = PossibleFirstNames[RandomNumber.Next(0, PossibleFirstNames.Count)],  
-                LastName = PossibleLastNames[RandomNumber.Next(0, PossibleLastNames.Count)],
-                Major = PossibleMajors[RandomNumber.Next(0, PossibleMajors.Count)]
-            };
+                Student RandomStudent = new Student()
+                {
+                    FirstName = PossibleFirstNames[RandomNumber.Next(0, PossibleFirstNames.Count)],  
+                    LastName = PossibleLastNames[RandomNumber.Next(0, PossibleLastNames.Count)],
+                    Major = PossibleMajors[RandomNumber.Next(0, PossibleMajors.Count)]
+                };
 
-            return RandomStudent;
+                if (!StudentList.Contains(RandomStudent))
+                {
+                    StudentList.Add(RandomStudent);
+                }
+            }
+            return StudentList;
         }
-
-
-
-        // This class should be used to generate random names and Majors for Students.
-        // This is NOT your Repository
-        // All methods should be Unit Tested :)
     }
 }
