@@ -12,6 +12,18 @@ namespace RepoQuiz.Tests.DAL
     [TestClass]
     public class StudentContextTest
     {
-        
+        [TestMethod]
+        public void Context_CanICreateAnInstanceOfTheClass()
+        {
+            StudentContext testContext = new StudentContext();
+            Assert.IsNotNull(testContext);
+        }
+
+        [TestMethod]
+        public void Context_ContextIsCorrectType()
+        {
+            StudentContext testContext = new StudentContext();
+            Assert.IsInstanceOfType(testContext.Students, typeof(DbSet<Student>));
+        }
     }
 }
