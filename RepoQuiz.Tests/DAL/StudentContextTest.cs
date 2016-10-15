@@ -20,14 +20,14 @@ namespace RepoQuiz.Tests.DAL
 
         List<Student> populatedStudentList = new List<Student>()
             {
-                new Student()
+                new Student
                 {
                     StudentID = 1,
                     FirstName = "Billy",
                     LastName = "Joel",
                     Major = "Music"
                 },
-                new Student()
+                new Student
                 {
                     StudentID = 2,
                     FirstName = "David",
@@ -48,7 +48,7 @@ namespace RepoQuiz.Tests.DAL
             mock_context.Setup(c => c.Students).Returns(mock_student_table.Object);
 
             mock_student_table.Setup(t => t.Add(It.IsAny<Student>())).Callback((Student a) => student_list.Add(a));
-            mock_student_table.Setup(t => t.Remove(It.IsAny<Student>())).Callback((Student a) => student_list.Remove(a));
+            //mock_student_table.Setup(t => t.Remove(It.IsAny<Student>())).Callback((Student a) => student_list.Remove(a));
         }
 
         [TestInitialize]
@@ -101,8 +101,29 @@ namespace RepoQuiz.Tests.DAL
         public void Repo_CanStudentsBeAdded_CheckedViaCount()
         {
             // Act
-            repo.AddStudents(populatedStudentList);
+            int expected_student_count = populatedStudentList.Count;
+            int actual_student_count = repo.AddStudents(populatedStudentList).Count;
 
+            // Assert
+            Assert.AreEqual(expected_student_count, actual_student_count);
+        }
+
+        [TestMethod]
+        public void Repo_CanStudentsBeAdded_CheckedViaFirstName()
+        {
+            // Act
+            List<Student> studentListReturned = repo.AddStudents(populatedStudentList);
+
+            // Assert
+            Assert.IsTrue(studentListReturned[0].FirstName == "Billy");
+            Assert.IsTrue(studentListReturned[1].FirstName == "David");
+        }
+
+        [TestMethod]
+        public void Repo_CanStudentsBeGotten_CheckedViaCount()
+        {
+            // Act
+            repo.AddStudents(populatedStudentList);
             int expected_student_count = populatedStudentList.Count;
             int actual_student_count = repo.GetAllStudents().Count;
 
@@ -111,7 +132,7 @@ namespace RepoQuiz.Tests.DAL
         }
 
         [TestMethod]
-        public void Repo_CanStudentsBeAdded_CheckedViaFirstName()
+        public void Repo_CanStudentsGotten_CheckedViaFirstName()
         {
             // Act
             repo.AddStudents(populatedStudentList);
