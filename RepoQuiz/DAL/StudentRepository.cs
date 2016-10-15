@@ -27,19 +27,13 @@ namespace RepoQuiz.DAL
 
         virtual public List<Student> AddStudents(List<Student> sentStudentList)
         {
-            foreach (var student in sentStudentList)
+            for (int i = 0; i < sentStudentList.Count; i++)
             {
-                Context.Students.Add(new Student
-                {
-                    StudentID = student.StudentID,
-                    FirstName = student.FirstName,
-                    LastName = student.LastName,
-                    Major = student.Major
-                });
+                Context.Students.Add(sentStudentList[i]);
             }
             Context.SaveChanges();
 
-            return GetAllStudents();
+            return Context.Students.Select(a => a).ToList();
         }
 
 
