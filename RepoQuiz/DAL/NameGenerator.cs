@@ -23,12 +23,12 @@ namespace RepoQuiz.DAL
             "English", "Chemistry", "Biology", "Physics", "Math", "Philosophy", "Psychology", "Music", "Art", "Law", "Political Science", "Pre-Med"
         };
 
-        public List<Student> GenerateRandomStudentList()
+        public List<Student> GenerateRandomStudentList(int randomStudentsToCreate)
         {
             List<Student> StudentList = new List<Student>();
             Random RandomNumber = new Random();
 
-            while (StudentList.Count < 10 )
+            while (StudentList.Count < randomStudentsToCreate)
             {
                 Student RandomStudent = new Student()
                 {

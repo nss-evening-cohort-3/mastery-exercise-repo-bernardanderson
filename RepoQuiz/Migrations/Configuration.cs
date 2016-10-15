@@ -18,7 +18,7 @@ namespace RepoQuiz.Migrations
         protected override void Seed(StudentContext context)
         {
             NameGenerator SeedNameGenerator = new NameGenerator();
-            List<Student> StudentList = SeedNameGenerator.GenerateRandomStudentList();
+            List<Student> StudentList = SeedNameGenerator.GenerateRandomStudentList(10);
 
             foreach (var student in StudentList)
             {
